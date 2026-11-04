@@ -1,19 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
+
 function Home() {
+  const navigate = useNavigate();
   const featuredJobs = [
     {
       id: 1,
       title: 'Java Developer Intern',
-      company: 'ABC Technologies',
+      company: 'AI GEN Technologies',
       location: 'Hyderabad',
       type: 'Internship',
     },
     {
       id: 2,
       title: 'Frontend Developer Intern',
-      company: 'XYZ Solutions',
+      company: 'FEDTECH Solutions',
       location: 'Remote',
       type: 'Internship',
     },
@@ -60,9 +63,12 @@ function Home() {
           to start your career.
         </p>
 
-        <button className="btn btn-primary mt-3">
-          Explore Opportunities
-        </button>
+        <button
+  className="btn btn-primary mt-3"
+  onClick={() => navigate('/opportunities')}
+>
+  Explore Opportunities
+</button>
       </div>
 
       {/* Featured Jobs */}
