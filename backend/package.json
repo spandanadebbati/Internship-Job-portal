@@ -1,0 +1,21 @@
+{
+  "name": "career-connect-backend",
+  "version": "1.0.0",
+  "description": "Express + MongoDB API for Career Connect",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "update-records": "node scripts/updateExistingOpportunities.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mongoose": "^9.12.0"
+  }
+}

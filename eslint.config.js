@@ -18,4 +18,17 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
+  {
+    // The backend is Node.js (CommonJS), not browser React code
+    files: ['backend/**/*.js'],
+    extends: [js.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      sourceType: 'commonjs',
+    },
+    rules: {
+      // Express error handlers must declare all 4 parameters, even if unused
+      'no-unused-vars': ['error', { argsIgnorePattern: '^(req|res|next)$' }],
+    },
+  },
 ])

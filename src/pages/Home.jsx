@@ -1,98 +1,65 @@
-import { useNavigate } from 'react-router-dom';
+
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-
+import Jobcard from '../Components/Jobcard';
 
 function Home() {
-  const navigate = useNavigate();
-  const featuredJobs = [
-    {
-      id: 1,
-      title: 'Java Developer Intern',
-      company: 'AI GEN Technologies',
-      location: 'Hyderabad',
-      type: 'Internship',
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer Intern',
-      company: 'FEDTECH Solutions',
-      location: 'Remote',
-      type: 'Internship',
-    },
-    {
-      id: 3,
-      title: 'Python Developer',
-      company: 'Tech Solutions',
-      location: 'Hyderabad',
-      type: 'Full Time',
-    },
-    {
-      id: 4,
-      title: 'Data Analyst Intern',
-      company: 'Bright Analytics',
-      location: 'Bengaluru',
-      type: 'Internship',
-    },
-    {
-      id: 5,
-      title: 'React Developer',
-      company: 'WebTech Solutions',
-      location: 'Chennai',
-      type: 'Full Time',
-    },
-    {
-      id: 6,
-      title: 'Python Developer Intern',
-      company: 'Innovate Technologies',
-      location: 'Remote',
-      type: 'Internship',
-    },
-  ];
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/opportunities')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch opportunities');
+        }
+        return response.json();
+      })
+      .then((data) => setJobs(data))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <>
       <Navbar />
 
-      {/* Welcome Section */}
-      <div className="container mt-5 text-center">
-        <h1>Welcome to Career Connect</h1>
+      <div className="bg-primary text-white text-center py-5">
+        <div className="container">
+          <h1 className="display-4 fw-bold">
+            Welcome to Career Connect
+          </h1>
 
-        <p className="lead mt-3">
-          Find the right internship and job opportunities
-          to start your career.
-        </p>
+          <p className="lead">
+            Find internships and job opportunities to start your career.
+          </p>
 
-        <button
-  className="btn btn-primary mt-3"
-  onClick={() => navigate('/opportunities')}
->
-  Explore Opportunities
-</button>
+          <Link to="/opportunities" className="btn btn-light btn-lg mt-3">
+            Explore Opportunities
+          </Link>
+        </div>
       </div>
 
-      {/* Featured Jobs */}
-      <div className="container mt-5 mb-5">
+      <div className="container my-5">
         <h2 className="text-center mb-4">
-          Featured Opportunities
+          Latest Opportunities
         </h2>
 
-        <div className="row">
-          {featuredJobs.map((job) => (
-            <div className="col-md-4 mb-4" key={job.id}>
-              <div className="card p-3 h-100">
-                <h5>{job.title}</h5>
-                <p>{job.company}</p>
-                <p>Location: {job.location}</p>
-                <p>Type: {job.type}</p>
-
-                <button className="btn btn-outline-primary">
-                  View Details
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center">Loading opportunities...</p>
+        ) : jobs.length > 0 ? (
+          <div className="row">
+            {jobs.slice(0, 3).map((job) => (
+              <Jobcard key={job._id} job={job} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center">
+            No opportunities available yet.
+          </p>
+        )}
       </div>
 
       <Footer />
