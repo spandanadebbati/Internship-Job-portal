@@ -23,10 +23,12 @@ function Admin() {
   const [applications, setApplications] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
+  const API_URL = 'https://job-portal-10g9.onrender.com';
+
   const fetchOpportunities = async () => {
     try {
       const response = await fetch(
-        'http://localhost:5000/api/opportunities'
+        `${API_URL}/api/opportunities`
       );
       const data = await response.json();
       setOpportunities(data);
@@ -38,7 +40,7 @@ function Admin() {
   const fetchApplications = async () => {
     try {
       const response = await fetch(
-        'http://localhost:5000/api/applications'
+        `${API_URL}/api/applications`
       );
       const data = await response.json();
       setApplications(data);
@@ -63,8 +65,8 @@ function Admin() {
     e.preventDefault();
 
     const url = editingId
-      ? `http://localhost:5000/api/opportunities/${editingId}`
-      : 'http://localhost:5000/api/opportunities';
+      ? `${API_URL}/api/opportunities/${editingId}`
+      : `${API_URL}/api/opportunities`;
 
     try {
       const response = await fetch(url, {
@@ -123,7 +125,7 @@ function Admin() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/opportunities/${id}`,
+        `${API_URL}/api/opportunities/${id}`,
         { method: 'DELETE' }
       );
 
@@ -143,7 +145,7 @@ function Admin() {
   const handleStatusChange = async (id, status) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/applications/${id}`,
+        `${API_URL}/api/applications/${id}`,
         {
           method: 'PUT',
           headers: {
@@ -337,3 +339,4 @@ function Admin() {
 }
 
 export default Admin;
+

@@ -11,7 +11,7 @@ function JobDetails() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/opportunities/${id}`)
+    fetch(`https://job-portal-10g9.onrender.com/api/opportunities/${id}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Opportunity not found');

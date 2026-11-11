@@ -8,7 +8,7 @@ function Applications() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/applications')
+    fetch('https://job-portal-10g9.onrender.com/api/applications')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch applications');

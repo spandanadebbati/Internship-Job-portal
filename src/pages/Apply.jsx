@@ -30,7 +30,7 @@ function Apply() {
 
     try {
       const response = await fetch(
-        'http://localhost:5000/api/applications',
+        'https://job-portal-10g9.onrender.com/api/applications',
         {
           method: 'POST',
           headers: {
